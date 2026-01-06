@@ -629,14 +629,19 @@ describe('AskAssistantChat', () => {
 			);
 		});
 
-		it('should show ThinkingMessagePlaceholder when streaming with no tool messages', () => {
+		it('should show ThinkingMessage with fake thinking-group when streaming with no tool messages', () => {
 			renderWithMessages([], { streaming: true, loadingMessage: 'Thinking' });
 
-			// Should render ThinkingMessagePlaceholder, not ThinkingMessage
-			expect(thinkingPlaceholderCallCount).toBe(1);
-			expect(thinkingMessageCallCount).toBe(0);
+			// Should render ThinkingMessage with a fake thinking-group, not ThinkingMessagePlaceholder
+			expect(thinkingMessageCallCount).toBe(1);
+			expect(thinkingPlaceholderCallCount).toBe(0);
 
-			expect(thinkingPlaceholderProps[0].message).toBe('Thinking');
+			const props = getThinkingMessageProps();
+			expect(props.items).toHaveLength(1);
+			expect(props.items[0].id).toBe('thinking-item');
+			expect(props.items[0].displayTitle).toBe('Thinking');
+			expect(props.items[0].status).toBe('running');
+			expect(props.latestStatusText).toBe('Thinking');
 		});
 
 		it('should pass defaultExpanded as true to ThinkingMessage', () => {
