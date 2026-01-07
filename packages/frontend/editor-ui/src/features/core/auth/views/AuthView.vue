@@ -66,25 +66,42 @@ const onSecondaryClick = () => {
 
 <style lang="scss" module>
 body {
-	background-color: var(--color--background--light-2);
+	background-color: var(--color--background--light-1);
 }
 
 .container {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	padding-top: var(--spacing--2xl);
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+
+	background: radial-gradient(
+		circle at 50% 30%,
+		rgba(59, 157, 255, 0.08) 0%,
+		rgba(59, 157, 255, 0.01) 50%,
+		transparent 80%
+	);
 
 	> * {
 		width: 352px;
+		position: relative;
+		z-index: 1;
 	}
+}
+
+.container img {
+	filter: drop-shadow(0 0 15px rgba(59, 157, 255, 0.25));
 }
 
 .textContainer {
 	text-align: center;
+	margin-bottom: var(--spacing--m);
 }
 
 .formContainer {
 	padding-bottom: var(--spacing--xl);
+	filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.15));
 }
 </style>
