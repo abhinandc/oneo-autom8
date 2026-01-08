@@ -109,17 +109,13 @@ try {
 		await installProcess;
 	}
 
-<<<<<<< HEAD
 	// Limit turbo concurrency in Docker builds to avoid OOM
 	let buildProcess;
 	if (isDockerBuild) {
-		buildProcess = $`cd ${config.rootDir} && pnpm exec turbo run build --filter=!@n8n/eslint-plugin-community-nodes --filter=!@n8n/node-cli --concurrency=2`;
+		buildProcess = $`cd ${config.rootDir} && pnpm exec turbo run build --concurrency=1 --filter=!@n8n/eslint-plugin-community-nodes --filter=!@n8n/node-cli`;
 	} else {
 		buildProcess = $`cd ${config.rootDir} && pnpm exec turbo run build --filter=!@n8n/eslint-plugin-community-nodes --filter=!@n8n/node-cli`;
 	}
-=======
-	const buildProcess = $`cd ${config.rootDir} && pnpm exec turbo run build --concurrency=1 --filter=!@n8n/eslint-plugin-community-nodes --filter=!@n8n/node-cli`;
->>>>>>> 2e6addf85a (fix: limit build concurrency to avoid OOM)
 	buildProcess.pipe(process.stdout);
 	await buildProcess;
 
