@@ -110,6 +110,12 @@ try {
 	}
 
 	// Limit turbo concurrency in Docker builds to avoid OOM
+	let buildProcess;
+	if (isDockerBuild) {
+		buildProcess = $`cd ${config.rootDir} && pnpm exec turbo run build --filter=!@n8n/eslint-plugin-community-nodes --filter=!@n8n/node-cli --concurrency=2`;
+	} else {
+		buildProcess = $`cd ${config.rootDir} && pnpm exec turbo run build --filter=!@n8n/eslint-plugin-community-nodes --filter=!@n8n/node-cli`;
+	}
 	const turboCommand = isDockerBuild
 		? 'pnpm exec turbo run build --filter=!@n8n/eslint-plugin-community-nodes --filter=!@n8n/node-cli --concurrency=2'
 		: 'pnpm exec turbo run build --filter=!@n8n/eslint-plugin-community-nodes --filter=!@n8n/node-cli';
