@@ -14,7 +14,7 @@ COPY . .
 
 # Install dependencies
 # We ignore specific optional deps errors if they occur
-RUN pnpm install --frozen-lockfile --ignore-scripts || true
+RUN pnpm install --ignore-scripts
 # Run scripts explicitly if needed, but usually install is enough for build deps
 
 # Build n8n (Produces 'compiled' folder)
