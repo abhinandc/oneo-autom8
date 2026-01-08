@@ -116,10 +116,6 @@ try {
 	} else {
 		buildProcess = $`cd ${config.rootDir} && pnpm exec turbo run build --filter=!@n8n/eslint-plugin-community-nodes --filter=!@n8n/node-cli`;
 	}
-	const turboCommand = isDockerBuild
-		? 'pnpm exec turbo run build --filter=!@n8n/eslint-plugin-community-nodes --filter=!@n8n/node-cli --concurrency=2'
-		: 'pnpm exec turbo run build --filter=!@n8n/eslint-plugin-community-nodes --filter=!@n8n/node-cli';
-	const buildProcess = $`cd ${config.rootDir} && ${turboCommand}`;
 	buildProcess.pipe(process.stdout);
 	await buildProcess;
 
