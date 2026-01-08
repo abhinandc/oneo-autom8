@@ -19,11 +19,11 @@ COPY . .
 # Set CI environment for optimized build
 ENV CI=true
 ENV DOCKER_BUILD=true
-ENV NODE_OPTIONS="--max-old-space-size=4096"
+ENV NODE_OPTIONS="--max-old-space-size=8192"
 ENV N8N_SKIP_LICENSES=true
 
-# Install dependencies (ignore scripts, build-n8n.mjs will handle what's needed)
-RUN pnpm install --ignore-scripts
+# Install all dependencies including dev (needed for build tools like tsup, zx)
+RUN pnpm install
 
 # Build n8n (Produces 'compiled' folder)
 RUN node scripts/build-n8n.mjs

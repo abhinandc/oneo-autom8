@@ -110,9 +110,10 @@ try {
 	}
 
 	// Limit turbo concurrency in Docker builds to avoid OOM
+	// Exclude langchain nodes temporarily due to build issues (AI features can be added later)
 	let buildProcess;
 	if (isDockerBuild) {
-		buildProcess = $`cd ${config.rootDir} && pnpm exec turbo run build --concurrency=1 --filter=!@n8n/eslint-plugin-community-nodes --filter=!@n8n/node-cli`;
+		buildProcess = $`cd ${config.rootDir} && pnpm exec turbo run build --concurrency=2 --filter=!@n8n/eslint-plugin-community-nodes --filter=!@n8n/node-cli --filter=!@n8n/n8n-nodes-langchain`;
 	} else {
 		buildProcess = $`cd ${config.rootDir} && pnpm exec turbo run build --filter=!@n8n/eslint-plugin-community-nodes --filter=!@n8n/node-cli`;
 	}
